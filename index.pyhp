@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>ToDoList</title>
+<link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>    
+
+<h2>ToDoList</h2>
+<table>
+<tr><th>ToDo</th><th>Deadline</th><th>Status</th></tr>
+{
+def item(name,deadline,status):
+  return f"<tr><td>{name}</td><td>{deadline}</td><td>{status}</td></tr>"
+for i in db.read():
+  ret += item(**i)
+}
+<tr><td><input type="text" id="name"></td><td><input type="date" id="deadline"></td><td><button id="submit">追加</button></td></form></tr>
+</table>
+
+<h2>Sample Scripts</h2>
+
+<pre>
+i=2
+ret=str(i)
+>> {
+i=2
+ret=str(i)
+}
+
+i+=2
+ret=str(i)
+>> {
+i+=2
+ret=str(i)
+}
+</pre>
+
+<script src="/static/js/post.js"></script>
+</body>
+</html>
