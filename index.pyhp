@@ -6,15 +6,30 @@
 <body>
 
 <h2>ToDoList</h2>
+
+<form method="POST" id="create"></form>
+<form method="POST" id="toggle-stat"></form>
+
 <table>
-<tr><th>ToDo</th><th>Deadline</th><th>Status</th></tr>
+<tr>
+  <th>ToDo<button>↓</button></th>
+  <th>Deadline<button>↓</button></th>
+  <th><button>👀</button></th>
+</tr>
 {
 def item(name,deadline,status):
-  return f"<tr><td>{name}</td><td>{deadline}</td><td>{status}</td></tr>"
+  if status:
+    return f'<tr><td>{name}</td><td>{deadline}</td><td><button>✓</button></td></tr>'
+  else:
+    return ''
 for i in db.read():
   ret += item(**i)
 }
-<tr><td><input type="text" id="name"></td><td><input type="date" id="deadline"></td><td><button id="submit">追加</button></td></form></tr>
+<tr>
+  <td><input form="create" name="name" type="text" value="aaa"></td>
+  <td><input form="create" name="deadline" type="date" value="2023-05-30"></td>
+  <td><button form="create" name="type" value="create" type="submit">＋</button></td>
+</tr>
 </table>
 
 <h2>Sample Script</h2>
@@ -22,8 +37,8 @@ for i in db.read():
 <p>{ret='Hello World'}</p>
 
 <pre>
-i = 2; ret += str(i) >> {i = 2;ret += str(i)}
-i += 2; ret += str(i) >> {i += 2;ret += str(i)}
+i = 2; ret += str(i) >> {i = 2; ret += str(i)}
+i += 2; ret += str(i) >> {i += 2; ret += str(i)}
 </pre>
 
 <pre>
@@ -32,6 +47,5 @@ ret = str(np.mean(range(10)))
 >> {import numpy as np; ret=str(np.mean(range(10)))}
 </pre>
 
-<script src="/static/js/post.js"></script>
 </body>
 </html>

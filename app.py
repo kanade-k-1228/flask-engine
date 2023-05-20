@@ -1,12 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, redirect, url_for
 
 app = Flask(__name__)
 
 # -------------------------------------
-# {name:string, deadline:date, status:bool}[]
+# {key:number, name:string, deadline:date, status:bool}[]
 class DB:
-    data =  [{'name':'item0','deadline':'item0-d','status':'item0-s'},
-      {'name':'item1','deadline':'item1-d','status':'item1-s'}]
+    data =  []
     def read(self):
         return self.data
     def create(self,name,deadline,status):
@@ -25,11 +24,8 @@ def run_script(script):
     exec(script,global_scope,local_scope)
     ret = local_scope.get('ret')
     global_scope.update(local_scope)
-    if ret:
-        return ret
-    else:
-        return ''
-
+    return ret
+    
 @app.route('/')
 def root():
     ret = ''
@@ -59,8 +55,11 @@ def root():
 
 @app.route('/', methods=['post'])
 def register():
-    get = {'name':request.form.get('name'),'deadline':request.form.get('deadline'),'status':request.form.get('status')}
-    print(get)
-    # if get not undefined:
-    # db.create(get)
-    return root()
+    type = request.form.get('type')
+    name = request.form.get('name')
+    deadline = request.form.get('deadline')
+    print(request.form)
+    if type == 'create' and name and deadline:
+        print(f'Create:{name}:{deadline}')
+        db.create(name,deadline,'False')
+    return redirect(url_for('root'))
