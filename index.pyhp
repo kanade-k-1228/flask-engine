@@ -3,7 +3,7 @@
 <title>ToDoList</title>
 <link rel="stylesheet" href="/static/css/styles.css">
 </head>
-<body>    
+<body>
 
 <h2>ToDoList</h2>
 <table>
@@ -17,22 +17,19 @@ for i in db.read():
 <tr><td><input type="text" id="name"></td><td><input type="date" id="deadline"></td><td><button id="submit">追加</button></td></form></tr>
 </table>
 
-<h2>Sample Scripts</h2>
+<h2>Sample Script</h2>
+
+<p>{ret='Hello World'}</p>
 
 <pre>
-i=2
-ret=str(i)
->> {
-i=2
-ret=str(i)
-}
+i = 2; ret += str(i) >> {i = 2;ret += str(i)}
+i += 2; ret += str(i) >> {i += 2;ret += str(i)}
+</pre>
 
-i+=2
-ret=str(i)
->> {
-i+=2
-ret=str(i)
-}
+<pre>
+import numpy as np
+ret = str(np.mean(range(10)))
+>> {import numpy as np; ret=str(np.mean(range(10)))}
 </pre>
 
 <script src="/static/js/post.js"></script>

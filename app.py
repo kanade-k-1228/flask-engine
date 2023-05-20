@@ -17,6 +17,7 @@ class DB:
         self.data.pop(i)
 db = DB()
 # -------------------------------------
+
 global_scope={'db':db}
 
 def run_script(script):
