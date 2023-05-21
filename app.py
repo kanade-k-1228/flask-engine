@@ -3,17 +3,16 @@ from flask import Flask, request, redirect, url_for
 app = Flask(__name__)
 
 # -------------------------------------
-# {key:number, name:string, deadline:date, status:bool}[]
 class DB:
-    data =  []
+    data = [] # {name:string, deadline:yyyy-mm-dd}[]
     def read(self):
         return self.data
-    def create(self,name,deadline,status):
-        self.data.append({'name':name,'deadline':deadline,'status':status})
-    def update(self,i,name,deadline,status):
-        self.data[i]=[{'name':name,'deadline':deadline,'status':status}]
-    def delete(self,i):
-        self.data.pop(i)
+    def create(self,name,deadline):
+        self.data.append({'name':name,'deadline':deadline})
+    def update(self,index,name,deadline):
+        self.data[index]=[{'name':name,'deadline':deadline}]
+    def delete(self,index):
+        self.data.pop(index)
 db = DB()
 # -------------------------------------
 
@@ -53,13 +52,21 @@ def root():
                 ret += char
     return ret
 
-@app.route('/', methods=['post'])
-def register():
-    type = request.form.get('type')
+@app.route('/create', methods=['post'])
+def create():
+    print(request.form)
     name = request.form.get('name')
     deadline = request.form.get('deadline')
-    print(request.form)
-    if type == 'create' and name and deadline:
+    if name and deadline:
         print(f'Create:{name}:{deadline}')
-        db.create(name,deadline,'False')
+        db.create(name,deadline)
+    return redirect(url_for('root'))
+
+@app.route('/delete', methods=['post'])
+def delete():
+    print(request.form)
+    index = request.form.get('index')
+    if index:
+        print(f'Delete:{index}')
+        db.delete(int(index))
     return redirect(url_for('root'))

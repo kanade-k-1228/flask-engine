@@ -7,28 +7,25 @@
 
 <h2>ToDoList</h2>
 
-<form method="POST" id="create"></form>
-<form method="POST" id="toggle-stat"></form>
+<form method="POST" action="create" id="create"></form>
+<form method="POST" action="delete" id="delete"></form>
 
 <table>
 <tr>
-  <th>ToDo<button>↓</button></th>
-  <th>Deadline<button>↓</button></th>
-  <th><button>👀</button></th>
+  <th>ToDo</th>
+  <th>Deadline</th>
+  <th></th>
 </tr>
 {
-def item(name,deadline,status):
-  if status:
-    return f'<tr><td>{name}</td><td>{deadline}</td><td><button>✓</button></td></tr>'
-  else:
-    return ''
-for i in db.read():
-  ret += item(**i)
+def item(index,name,deadline):
+  return f'<tr><td>{name}</td><td>{deadline}</td><td><button form="delete" name="index" value={index}>✓</button></td></tr>'
+for index, todo in enumerate(db.read()):
+  ret += item(index,todo['name'],todo['deadline'])
 }
 <tr>
-  <td><input form="create" name="name" type="text" value="aaa"></td>
+  <td><input form="create" name="name" type="text" value="To Do Item"></td>
   <td><input form="create" name="deadline" type="date" value="2023-05-30"></td>
-  <td><button form="create" name="type" value="create" type="submit">＋</button></td>
+  <td><button form="create" type="submit">＋</button></td>
 </tr>
 </table>
 
